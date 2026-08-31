@@ -22,7 +22,7 @@ class Dotblinky:
 
     def update(self):
         self.display.show()
-        
+
     def blank(self):
         self.display.rect(0, 0, self.width, self.height, 0, True)
 
@@ -47,12 +47,12 @@ class Dotblinky:
         elif direction == 3:
             self.display.scroll(0,-1)
             for x in range(63):
-                self.display.pixel(x,(self.height-1),random.getrandbits(1))           
+                self.display.pixel(x,(self.height-1),random.getrandbits(1))
 
     def text(self, string, invert=False):
         self.display.rect(0, 0, self.width, self.height, invert, True)
         self.display.text(string,0,0, not(invert))
-        
+
     def onebar(self, percent, invert=False, label=True):
         if percent > 100:
             percent = 100
@@ -68,14 +68,30 @@ class Dotblinky:
                 self.display.text(label, s+1,0, not(invert))
             else:
                 self.display.text(label, s-(labwid) ,0, invert)
-        
+
     def stripes(self, direction=0, offset=0, onwidth=3, offwidth=3):
         pattern = (1,1,1,1,0,0,0,0)
         for y in range(8):
             for x in range(self.width):
                 self.display.pixel(x,y,pattern[(offset+y) % len(pattern)])
                 offset = offset + 1
-    
+
+    def gurumeditation(self):
+        self.blank()
+        # Draw 'text'
+        for x in range(2,self.width-2):
+            for y in range(2,self.height-2):
+                self.display.pixel(x,y,random.getrandbits(1))
+        self.update()
+
+        for count in range(5):
+            time.sleep(1)
+            self.display.rect(0,0,self.width,self.height,1)
+            self.update()
+            time.sleep(1)
+            self.display.rect(0,0,self.width,self.height,0)
+            self.update()
+
     # This is not protected against not sending long enough data
     def linegraph(self, data, fill=True, invert=False):
         self.blank()
