@@ -79,8 +79,8 @@ class Dotblinky:
     def gurumeditation(self):
         self.blank()
         # Draw 'text'
-        for x in range(2,self.width-2):
-            for y in range(2,self.height-2):
+        for x in range(4,self.width-4):
+            for y in range(2,self.height-3):
                 self.display.pixel(x,y,random.getrandbits(1))
         self.update()
 
